@@ -1,18 +1,27 @@
+#bikash
+from pyrogram.enums import ChatType, ChatMemberStatus
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from Bikash.config import adminlist
 from Bikash.Bgt import get_string
 from Bikash import app
 from Bikash.misc import SUDOERS
-from Bikash.utils.database import (get_authuser_names, get_cmode, get_lang, is_active_chat,
-                                   is_commanddelete_on, is_maintenance, is_nonadmin_chat)
+from Bikash.utils.database import (
+    get_authuser_names, 
+    get_cmode, 
+    get_lang, 
+    is_active_chat, 
+    is_commanddelete_on, 
+    is_maintenance, 
+    is_nonadmin_chat,
+)
 from ..formatters import int_to_alpha
 
 def AdminRightsCheck(mystic):
     async def wrapper(client, message):
-        if not await is_maintenance():
+        if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    "Bot is under maintenance. Please wait for some time. Please visit our support chat..."
+                    "Bot is under maintenance. Please wait for some time..."
                 )
         if await is_commanddelete_on(message.chat.id):
             try:
@@ -29,7 +38,7 @@ def AdminRightsCheck(mystic):
                 [
                     [
                         InlineKeyboardButton(
-                            text="How To Fix It ?",
+                            text="How to Fix this? ",
                             callback_data="AnonymousAdmin",
                         ),
                     ]
@@ -65,10 +74,10 @@ def AdminRightsCheck(mystic):
 
 def AdminActual(mystic):
     async def wrapper(client, message):
-        if not await is_maintenance():
+        if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    "Bot is under maintenance. Please wait for some time. Please visit our support chat..."
+                    "Bot is under maintenance. Please wait for some time..."
                 )
         if await is_commanddelete_on(message.chat.id):
             try:
@@ -85,7 +94,7 @@ def AdminActual(mystic):
                 [
                     [
                         InlineKeyboardButton(
-                            text="ʜᴏᴡ ᴛᴏ ғɪx ᴛʜɪs ?",
+                            text="How to Fix this? ",
                             callback_data="AnonymousAdmin",
                         ),
                     ]
@@ -96,23 +105,26 @@ def AdminActual(mystic):
             )
         if message.from_user.id not in SUDOERS:
             try:
-                member = await app.get_chat_member(
-                    message.chat.id, message.from_user.id
+                member = (
+                    await app.get_chat_member(
+                        message.chat.id, message.from_user.id
+                    )
                 )
-            except:
-                return
-            if not member.can_manage_voice_chats:
-                return await message.reply(_["general_5"])
+                if member.status != ChatMemberStatus.ADMINISTRATOR:
+                    if not member.privileges.can_manage_video_chats:
+                        return await message.reply(_["general_5"])
+            except Exception as e:
+                return await message.reply(f"Error: {str(e)}")
         return await mystic(client, message, _)
 
     return wrapper
 
 def ActualAdminCB(mystic):
     async def wrapper(client, CallbackQuery):
-        if not await is_maintenance():
+        if await is_maintenance() is False:
             if CallbackQuery.from_user.id not in SUDOERS:
                 return await CallbackQuery.answer(
-                    "Bot is under maintenance. Please wait for some time. Please visit our support chat...",
+                    "Bot is under maintenance. Please wait for some time...",
                     show_alert=True,
                 )
         try:
@@ -120,37 +132,37 @@ def ActualAdminCB(mystic):
             _ = get_string(language)
         except:
             _ = get_string("en")
-        if CallbackQuery.message.chat.type == "private":
+        if CallbackQuery.message.chat.type == ChatType.PRIVATE:
             return await mystic(client, CallbackQuery, _)
         is_non_admin = await is_nonadmin_chat(
             CallbackQuery.message.chat.id
         )
         if not is_non_admin:
             try:
-                a = await app.get_chat_member(
-                    CallbackQuery.message.chat.id,
-                    CallbackQuery.from_user.id,
-                )
-            except:
-                return await CallbackQuery.answer(
-                    _["general_5"], show_alert=True
-                )
-            if not a.can_manage_voice_chats:
-                if CallbackQuery.from_user.id not in SUDOERS:
-                    token = await int_to_alpha(
-                        CallbackQuery.from_user.id
+                a = (
+                    await app.get_chat_member(
+                        CallbackQuery.message.chat.id,
+                        CallbackQuery.from_user.id,
                     )
-                    _check = await get_authuser_names(
-                        CallbackQuery.from_user.id
-                    )
-                    if token not in _check:
-                        try:
-                            return await CallbackQuery.answer(
-                                _["general_5"],
-                                show_alert=True,
+                )
+                if a.status != ChatMemberStatus.ADMINISTRATOR:
+                    if not a.privileges.can_manage_video_chats:
+                        if CallbackQuery.from_user.id not in SUDOERS:
+                            token = await int_to_alpha(
+                                CallbackQuery.from_user.id
                             )
-                        except:
-                            return
+                            _check = await get_authuser_names(
+                                CallbackQuery.from_user.id
+                            )
+                            if token not in _check:
+                                return await CallbackQuery.answer(
+                                    _["general_5"],
+                                    show_alert=True,
+                                )
+                    elif a is None:
+                        return await CallbackQuery.answer("You are not a member of this chat.")
+            except Exception as e:
+                return await CallbackQuery.answer(f"Error: {str(e)}")
         return await mystic(client, CallbackQuery, _)
 
     return wrapper
