@@ -8,7 +8,7 @@ ffmpeg-python
 gitpython
 hachoir
 heroku3
-httpx
+httpx==0.25.0
 lyricsgenius
 motor==2.5.0
 pymongo==3.12.0
