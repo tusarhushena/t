@@ -1,4 +1,8 @@
+#bikash
+#
+
 from pyrogram import filters
+from pyrogram.enums import ChatMembersFilter, ChatMemberStatus, ChatType
 from pyrogram.types import Message
 
 from Bikash.config import BANNED_USERS
@@ -27,7 +31,7 @@ async def playmode_(client, message: Message, _):
     query = message.text.split(None, 2)[1].lower().strip()
     if (str(query)).lower() == "disable":
         await set_cmode(message.chat.id, None)
-        return await message.reply_text(f"𝐂𝐡𝐚𝐧𝐧𝐞𝐥 𝐏𝐥𝐚𝐲 𝐃𝐢𝐬𝐚𝐛𝐥𝐞𝐝 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 𝐁𝐲 {message.from_user.first_name} 𝐈𝐧 {message.chat.title}")
+        return await message.reply_text("Channel Play Disabled")
     elif str(query) == "linked":
         chat = await app.get_chat(message.chat.id)
         if chat.linked_chat:
@@ -45,16 +49,16 @@ async def playmode_(client, message: Message, _):
             chat = await app.get_chat(query)
         except:
             return await message.reply_text(_["cplay_4"])
-        if chat.type != "channel":
+        if chat.type != ChatType.CHANNEL:
             return await message.reply_text(_["cplay_5"])
         try:
-            admins = await app.get_chat_members(
-                chat.id, filter="administrators"
+            admins = app.get_chat_members(
+                chat.id, filter=ChatMembersFilter.ADMINISTRATORS
             )
         except:
             return await message.reply_text(_["cplay_4"])
-        for users in admins:
-            if users.status == "creator":
+        async for users in admins:
+            if users.status == ChatMemberStatus.OWNER:
                 creatorusername = users.user.username
                 creatorid = users.user.id
         if creatorid != message.from_user.id:
