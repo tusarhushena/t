@@ -136,6 +136,12 @@ async def overall_stats(client, CallbackQuery, _):
     song = config.SONG_DOWNLOAD_DURATION
     play_duration = config.DURATION_LIMIT_MIN
     auto_leave = "Yes" if config.AUTO_LEAVING_ASSISTANT else "No"
+
+    # Safely await any asyncio.Future object here if needed.
+    # Example:
+    # datasize_call = some_async_function()
+    # data_size = await datasize_call
+
     text = f"""**Bot Stats:**
 
 **Modules:** {mod}
