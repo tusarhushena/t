@@ -8,11 +8,10 @@ ffmpeg-python
 gitpython
 hachoir
 heroku3
-httpx==0.25.0
 lyricsgenius
 motor==2.5.0
 pymongo==3.12.0
-pillow==9.5.0
+pillow
 psutil
 numpy
 telethon==1.33.1
@@ -29,7 +28,7 @@ speedtest-cli
 spotipy
 tgcrypto
 youtube-search
-youtube-search-python
 yt-dlp
 git+https://github.com/badmunda98/SafoneAPI
 git+https://github.com/KurimuzonAkuma/pyrogram@dev
+git+https://github.com/Kanha-XD/youtube-search-python@main
