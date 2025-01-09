@@ -32,7 +32,7 @@ async def resume_com(cli, message: Message, _, chat_id):
     await music_on(chat_id)
     await Bikashh.resume_stream(chat_id)
     await message.reply_text(
-        _["admin_4"].format(message.from_user.first_name),
+        _["admin_4"].format(message.from_user.mention),
         reply_markup=close_keyboard
     )
 
