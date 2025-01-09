@@ -40,7 +40,7 @@ async def admins(cli, message: Message, _, chat_id):
             await set_loop(chat_id, state)
             return await message.reply_text(
                 _["admin_25"].format(
-                    message.from_user.first_name, state
+                    message.from_user.mention, state
                 )
             )
         else:
@@ -48,7 +48,7 @@ async def admins(cli, message: Message, _, chat_id):
     elif state.lower() == "enable":
         await set_loop(chat_id, 10)
         return await message.reply_text(
-            _["admin_25"].format(message.from_user.first_name, state)
+            _["admin_25"].format(message.from_user.mention, state)
         )
     elif state.lower() == "disable":
         await set_loop(chat_id, 0)
