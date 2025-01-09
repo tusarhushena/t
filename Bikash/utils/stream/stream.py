@@ -110,8 +110,8 @@ async def stream(
                     original_chat_id,
                     photo=img,
                     caption=_["stream_1"].format(
-                        title[:30],
                         f"https://t.me/{app.username}?start=info_{vidid}",
+                        title[:23],
                         duration_min,
                         user_name,
                     ),
@@ -166,7 +166,7 @@ async def stream(
             await app.send_message(
                 original_chat_id,
                 _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
+                    position, title[:23], duration_min, user_name
                 ),
             )
         else:
@@ -193,8 +193,8 @@ async def stream(
                 original_chat_id,
                 photo=img,
                 caption=_["stream_1"].format(
-                        title[:30],
                         f"https://t.me/{app.username}?start=info_{vidid}",
+                        title[:23],
                         duration_min,
                         user_name,
                 ),
@@ -222,7 +222,7 @@ async def stream(
             await app.send_message(
                 original_chat_id,
                 _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
+                    position, title[:23], duration_min, user_name
                 ),
             )
         else:
@@ -276,7 +276,7 @@ async def stream(
             await app.send_message(
                 original_chat_id,
                 _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
+                    position, title[:23], duration_min, user_name
                 ),
             )
         else:
@@ -364,8 +364,8 @@ async def stream(
                 original_chat_id,
                 photo=img,
                 caption=_["stream_1"].format(
-                        title[:30],
                         f"https://t.me/{app.username}?start=info_{vidid}",
+                        title[:23],
                         duration_min,
                         user_name,
                 ),
@@ -391,7 +391,7 @@ async def stream(
             position = len(db.get(chat_id)) - 1
             await mystic.edit_text(
                 _["queue_4"].format(
-                    position, title[:30], duration_min, user_name
+                    position, title[:23], duration_min, user_name
                 )
             )
         else:
