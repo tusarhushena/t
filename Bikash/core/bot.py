@@ -1,6 +1,6 @@
 import sys
 from pyrogram import Client, errors
-from pyrogram.enums import ChatMemberStatus
+from pyrogram.enums import ChatMemberStatus, ParseMode
 from pyrogram.types import BotCommand
 
 from Bikash import config
@@ -17,6 +17,7 @@ class BikashBot(Client):
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
             in_memory=True,        
+          #  parse_mode=ParseMode.HTML,
             max_concurrent_transmissions=7,
         )
 
