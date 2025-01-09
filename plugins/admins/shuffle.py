@@ -42,7 +42,7 @@ async def admins(Client, message: Message, _, chat_id):
     random.shuffle(check)
     check.insert(0, popped)
     await message.reply_text(
-        _["admin_23"].format(message.from_user.first_name)
+        _["admin_23"].format(message.from_user.mention)
     )
 
 
