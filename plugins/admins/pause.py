@@ -33,7 +33,7 @@ async def pause_admin(cli, message: Message, _, chat_id):
     await music_off(chat_id)
     await Bikashh.pause_stream(chat_id)
     await message.reply_text(
-        _["admin_2"].format(message.from_user.first_name),
+        _["admin_2"].format(message.from_user.mention),
         reply_markup=close_keyboard
     )
 
