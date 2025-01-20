@@ -10,7 +10,7 @@ from pyrogram.types import (InlineKeyboardMarkup, InlineKeyboardButton, InputMed
 from pytgcalls.exceptions import NoActiveGroupCall
 
 from Bikash import config
-from Bikash.config import BANNED_USERS, lyrical
+from Bikash.config import BANNED_USERS, lyrical, CHANNEL_USERNAME
 from Bikash.Bgt import get_command
 from Bikash import (Apple, Resso, SoundCloud, Spotify, Telegram,
                         YouTube, app)
@@ -39,7 +39,7 @@ from Bikash import app
 PLAY_COMMAND = get_command("PLAY_COMMAND")
 
 # The username and ID of the channel (not the ID)
-CHANNEL_USERNAME = 'BikashGadgetsTech'  # Replace with your channel's username
+#CHANNEL_USERNAME = 'BikashGadgetsTech'  # Replace with your channel's username
 CHANNEL_ID = -1001439853191  # Replace with your channel's chat ID (to access programmatically)
 
 # Function to check if the bot is a member of the channel
@@ -124,7 +124,7 @@ async def play_commnd(
     # Check if the user is a member of the channel
     if not await check_channel_membership(user_id):
         await message.reply_text(
-            "You need to join our channel to proceed. Please click the button below to join.",
+            "You need to join our channel to proceed. Please click the button below to join. Powered by @BikashGadgetsTech ",
             reply_markup=inline_button()
         )
         return
