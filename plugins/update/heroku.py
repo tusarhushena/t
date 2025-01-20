@@ -214,7 +214,7 @@ async def usage_dynos(client, message, _):
     return await dyno.edit(text)
 
 
-@app.on_message(filters.command(UPDATE_COMMAND) & filters.user(OWNER_ID))
+@app.on_message(filters.command(UPDATE_COMMAND) & SUDOERS)
 @language
 async def update_(client, message, _):
     if await is_heroku():
@@ -239,7 +239,7 @@ async def update_(client, message, _):
     ):
         verification = str(checks.count())
     if verification == "":
-        return await response.edit("𝐁𝐨𝐭 𝐈𝐬 𝐔𝐩-𝐓𝐨-𝐃𝐚𝐭𝐞 𝐁𝐲 𝐔𝐩𝐬𝐭𝐫𝐞𝐚𝐦 𝐑𝐞𝐩𝐨 !")
+        return await response.edit("Bot is up-to-date!")
     updates = ""
     ordinal = lambda format: "%d%s" % (
         format,
@@ -253,13 +253,13 @@ async def update_(client, message, _):
     for info in repo.iter_commits(
         f"HEAD..origin/{config.UPSTREAM_BRANCH}"
     ):
-        updates += f"<b>➣ #{info.count()}: [{info.summary}]({REPO_}/commit/{info}) by -> {info.author}</b>\n\t\t\t\t<b>➥ 𝐂𝐨𝐦𝐦𝐢𝐭 :</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
-    _update_response_ = "𝐍𝐞𝐰 𝐔𝐨𝐝𝐚𝐭𝐞 𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 ✔️\n\n𝐏𝐮𝐬𝐡𝐢𝐧𝐠 𝐍𝐞𝐰 𝐔𝐨𝐝𝐚𝐭𝐞𝐬 ❗\n\n**𝐔𝐩𝐝𝐚𝐭𝐞𝐬:**\n\n[𝐂𝐡𝐞𝐜𝐤 𝐔𝐩𝐝𝐚𝐭𝐞𝐬]({url})"
+        updates += f"<b>➣ #{info.count()}: [{info.summary}]({REPO_}/commit/{info}) by -> {info.author}</b>\n\t\t\t\t<b>➥ Commited on:</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
+    _update_response_ = "<b>A new update is available for the Bot!</b>\n\n➣ Pushing Updates Now</code>\n\n**<u>Updates:</u>**\n\n"
     _final_updates_ = _update_response_ + updates
     if len(_final_updates_) > 4096:
         url = await Bikashhbin(updates)
         nrs = await response.edit(
-            f"𝐍𝐞𝐰 𝐔𝐨𝐝𝐚𝐭𝐞 𝐀𝐯𝐚𝐢𝐥𝐚𝐛𝐥𝐞 ✔️\n\n𝐏𝐮𝐬𝐡𝐢𝐧𝐠 𝐍𝐞𝐰 𝐔𝐨𝐝𝐚𝐭𝐞𝐬 ❗\n\n**𝐔𝐩𝐝𝐚𝐭𝐞𝐬:**\n\n[𝐂𝐡𝐞𝐜𝐤 𝐔𝐩𝐝𝐚𝐭𝐞𝐬]({url})"
+            f"<b>A new update is available for the Bot!</b>\n\n➣ Pushing Updates Now</code>\n\n**<u>Updates:</u>**\n\n[Click Here to checkout Updates]({url})"
         )
     else:
         nrs = await response.edit(
@@ -273,14 +273,14 @@ async def update_(client, message, _):
                 try:
                     await app.send_message(
                         x,
-                        f"{config.MUSIC_BOT_NAME} 𝐈𝐬 𝐑𝐞𝐬𝐭𝐚𝐫𝐭 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲. 𝐒𝐨𝐫𝐫𝐲 𝐅𝐨𝐫 𝐓𝐡𝐞 𝐈𝐬𝐬𝐮𝐞𝐬\n\n𝐘𝐨𝐮 𝐂𝐚𝐧 𝐩𝐥𝐚𝐲 𝐀𝐟𝐭𝐞𝐫 𝐅𝐞𝐰 𝐒𝐞𝐜...",
+                        f"{config.MUSIC_BOT_NAME} has just restarted herself. Sorry for the issues.\n\nStart playing after 10-15 seconds again.",
                     )
                     await remove_active_chat(x)
                     await remove_active_video_chat(x)
                 except Exception:
                     pass
             await response.edit(
-                f"{nrs.text}\n\n𝐁𝐨𝐭 𝐔𝐩𝐝𝐚𝐭𝐞𝐝 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 ! 𝐍𝐨𝐰 𝐖𝐚𝐢𝐭 𝐅𝐨𝐫 𝐅𝐞𝐰 𝐌𝐢𝐧𝐬 𝐅𝐨𝐫 𝐍𝐞𝐰 𝐔𝐩𝐝𝐚𝐭𝐞𝐬"
+                f"{nrs.text}\n\nBot was updated successfully on Heroku! Now, wait for 2 - 3 mins until the bot restarts!"
             )
             os.system(
                 f"{XCB[5]} {XCB[7]} {XCB[9]}{XCB[4]}{XCB[0]*2}{XCB[6]}{XCB[4]}{XCB[8]}{XCB[1]}{XCB[5]}{XCB[2]}{XCB[6]}{XCB[2]}{XCB[3]}{XCB[0]}{XCB[10]}{XCB[2]}{XCB[5]} {XCB[11]}{XCB[4]}{XCB[12]}"
@@ -288,11 +288,11 @@ async def update_(client, message, _):
             return
         except Exception as err:
             await response.edit(
-                f"{nrs.text}\n\n𝐒𝐨𝐦𝐭𝐡𝐢𝐧𝐠 𝐖𝐫𝐨𝐧𝐠 𝐖𝐡𝐞𝐧 𝐘𝐨𝐮 𝐓𝐫𝐲 𝐁𝐨𝐭 𝐑𝐞𝐬𝐭𝐚𝐫𝐭 𝐂𝐡𝐞𝐜𝐤 𝐋𝐨𝐠𝐬"
+                f"{nrs.text}\n\nSomething went wrong while initiating reboot! Please try again later or check logs for more info."
             )
             return await app.send_message(
                 config.LOG_GROUP_ID,
-                f"𝐀𝐧 𝐄𝐱𝐜𝐞𝐩𝐭𝐢𝐨𝐧 𝐎𝐜𝐜𝐮𝐫𝐞𝐝 𝐀𝐭 #𝐔𝐩𝐝𝐚𝐭𝐞𝐫 𝐃𝐮𝐞 𝐓𝐨: <code>{err}</code>",
+                f"AN EXCEPTION OCCURRED AT #UPDATER DUE TO: <code>{err}</code>",
             )
     else:
         served_chats = await get_active_chats()
@@ -300,17 +300,17 @@ async def update_(client, message, _):
             try:
                 await app.send_message(
                     x,
-                    f"{config.MUSIC_BOT_NAME} 𝐈𝐬 𝐑𝐞𝐬𝐭𝐚𝐫𝐭 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲. 𝐒𝐨𝐫𝐫𝐲 𝐅𝐨𝐫 𝐓𝐡𝐞 𝐈𝐬𝐬𝐮𝐞𝐬\n\n𝐘𝐨𝐮 𝐂𝐚𝐧 𝐩𝐥𝐚𝐲 𝐀𝐟𝐭𝐞𝐫 𝐅𝐞𝐰 𝐒𝐞𝐜..",
+                    f"{config.MUSIC_BOT_NAME} has just restarted herself. Sorry for the issues.\n\nStart playing after 10-15 seconds again.",
                 )
                 await remove_active_chat(x)
                 await remove_active_video_chat(x)
             except Exception:
                 pass
         await response.edit(
-            f"{nrs.text}\n\n𝐁𝐨𝐭 𝐔𝐩𝐝𝐚𝐭𝐞𝐝 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲 ! 𝐍𝐨𝐰 𝐖𝐚𝐢𝐭 𝐅𝐨𝐫 𝐅𝐞𝐰 𝐌𝐢𝐧𝐬 𝐅𝐨𝐫 𝐍𝐞𝐰 𝐔𝐩𝐝𝐚𝐭𝐞𝐬"
+            f"{nrs.text}\n\nBot was updated successfully! Now, wait for 1 - 2 mins until the bot reboots!"
         )
-        os.system("pip3 install -r Installer")
-        os.system(f"kill -9 {os.getpid()} && python3 -m Bikash")
+        os.system("pip3 install -r requirements.txt")
+        os.system(f"kill -9 {os.getpid()} && bash start")
         exit()
 
 
