@@ -176,7 +176,7 @@ Press ``Ctrl+C `` when you're done with editing env and ``:wq`` to save the env<
 - Install tmux to keep running your bot when you close the terminal by :
 ``sudo apt install tmux && tmux``
 - Finally run the bot by :
-``bash bikash.sh``
+``bash bikash`` or ``python3 -m Bikash``
 - For getting out from tmux session : Press | ``Ctrl+b`` | and then d<br>
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
